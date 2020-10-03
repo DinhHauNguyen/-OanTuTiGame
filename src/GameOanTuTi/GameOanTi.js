@@ -3,8 +3,9 @@ import './gameStyle/gameStyle.css'
 import OanTuTi from './OanTuTi'
 import KetQua from './KetQua'
 import NutPlay from './NutPlay'
+import {connect} from 'react-redux'
 
-export default class GameOanTi extends Component {
+class GameOanTi extends Component {
     render() {
         return (
             <div className="gameOanTuTi">
@@ -14,6 +15,9 @@ export default class GameOanTi extends Component {
                     </div>
                     <div className="col-4">
                         <KetQua></KetQua>
+                        <button onClick={() => {
+                            this.props.playGame()
+                        }} className="btn btn-success text-center">PLAY GAME</button>
                     </div>
                     <div className="col-4">
                         <NutPlay></NutPlay>
@@ -23,3 +27,19 @@ export default class GameOanTi extends Component {
         )
     }
 }
+
+
+const mapDispatchToProp = (dispatch)=> {
+    return {
+        playGame: ()  =>{ 
+            dispatch({
+                type:'PLAY_GAME'
+            })
+            dispatch({
+                type:'KET_QUA'
+            })
+        }
+        
+    }
+}
+export default connect(null,mapDispatchToProp)(GameOanTi)

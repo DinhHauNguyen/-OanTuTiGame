@@ -13,9 +13,7 @@ const stateDefault = {
     ketQua: 'Im Iron Man, I love you 3000',
     soBanThang: 0,
     tongSoBanChoi: 0,
-    mangOanTuTi: [
-        { ma: 'keo', hinhAnh: './img/gameoantuxi/keo.png' },
-    ]
+    mangOanTuTi:{ ma: 'keo', hinhAnh: './img/gameoantuxi/keo.png' },
 }
 
 export const gameOanTuTiReducer = (state = stateDefault, action) => {
@@ -34,23 +32,16 @@ export const gameOanTuTiReducer = (state = stateDefault, action) => {
             return { ...state }
         }
         case 'PLAY_GAME': {
-            let mangOanTuTiNgauNhien = [];
-            for (let i = 0; i < 1; i++) {
                 let soNgauNhien = Math.floor(Math.random() * 3);
-                let oanTuTiNgauNhien = mangOanTuTi[soNgauNhien];
-                mangOanTuTiNgauNhien.push(oanTuTiNgauNhien);
-            }
-            // Cập nhật lại state.mangXucXac
-            state.mangOanTuTi = mangOanTuTiNgauNhien;
-            // Cập nhật số bàn  chơi 
-            state.tongSoBanChoi += 1;
+                let oanTuTiNgauNhien = state.banChon[soNgauNhien];
+            state.mangOanTuTi = oanTuTiNgauNhien;
 
             return { ...state };
         }
         case 'KET_QUA': {
-            let banChon = state.banChon.find(bc => bc.datCuoc === true);
+            let banChoi = state.banChon.find(bc => bc.datCuoc === true);
             let mayChoi = state.mangOanTuTi;
-            switch (banChon.ma) {
+            switch (banChoi.ma) {
                 case 'keo':
                     if (mayChoi.ma === 'keo') {
                         state.ketQua = 'Hoà Nhé !';
@@ -84,7 +75,9 @@ export const gameOanTuTiReducer = (state = stateDefault, action) => {
                 default: state.ketQua = 'Im Iron Man, I love you 3000';
                 
             }
+            state.tongSoBanChoi += 1;
             return { ...state }
+            
         }
         default: return { ...state }
     }

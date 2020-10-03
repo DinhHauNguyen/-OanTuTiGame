@@ -17,11 +17,6 @@ class KetQua extends Component {
                             SỐ BÀN CHƠI : <span className="text-warning">{this.props.tongSoBanChoi}</span>
                         </div>
                     </div>
-                    <div>
-                        <button onClick={() => {
-                            this.props.playGame()
-                        }} className="btn btn-success text-center">PLAY GAME</button>
-                    </div>
                 </div>
             </div>
         )
@@ -34,17 +29,4 @@ const mapStateToProps = (state) => {
         tongSoBanChoi: state.stateGameOanTuTi.tongSoBanChoi
     }
 }
-const mapDispatchToProps = (dispatch) => {
-    return {
-        playGame: () => {
-            dispatch({
-                type:'PLAY_GAME'
-            })
-            dispatch({
-                type:'KET_QUA'
-            })
-        },
-        
-    }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(KetQua)
+export default connect(mapStateToProps)(KetQua)
